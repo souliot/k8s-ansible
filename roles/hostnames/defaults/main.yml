@@ -1,0 +1,6 @@
+---
+# author: BossLin
+
+hostnames_file: "/etc/hosts"
+ipnames: []
+# [{'192.168.32.101': 'node01'}, {'192.168.32.102': 'node02'}, {'192.168.32.103': 'node03'}]

@@ -1,0 +1,78 @@
+
+---
+# author: BossLin
+
+software_install_path: '/usr/local'
+kubernetes_bin_path: '{{ software_install_path }}/kubernetes/bin'
+kubernetes_cni_bin_path: '{{ software_install_path }}/cni/bin'
+kubernetes_cfssl_bin_path: '{{ software_install_path }}/cfssl/bin'
+kubernetes_helm_bin_path: '{{ software_install_path }}/helm/bin'
+kubernetes_calic_bin_path: '{{ software_install_path }}/calic/bin'
+
+kubernetes_node_packages:
+  - socat
+  - openssl
+
+kubernetes_min_ram: 1800
+
+kubernetes_tmp_path: "/tmp/ansibe.fetch"
+kubernetes_etcd_conf_path: '/etc/etcd'
+kubernetes_etcd_ssl_path: '{{ kubernetes_etcd_conf_path }}/ssl'
+kubernetes_etcd_data_path: "/var/lib/etcd"
+
+kubernetes_cni_conf_path: "/etc/cni/net.d"
+kubernetes_haproxy_conf_path: "/etc/haproxy"
+kubernetes_images_path: "/opt/software/kubernetes/images"
+
+kubernetes_log_path: "/var/log/kubernetes"
+kubernetes_conf_path: "/etc/kubernetes"
+kubernetes_pki_path: "{{ kubernetes_conf_path }}/pki"
+kubernetes_manifests_path: "{{ kubernetes_conf_path }}/manifests"
+kubernetes_kubelet_service_path: "/etc/systemd/system/kubelet.service.d"
+kubernetes_kubelet_data_path: "/var/lib/kubelet"
+
+kubernetes_apiserver_vip: ""
+kubernetes_apiserver_port: "6443"
+kubernetes_cluster_ip: "10.96.0.1"
+kubernetes_cluster_dns: "10.96.0.10"
+kubernetes_cluster_domain: "cluster.local"
+kubernetes_cluster_ip_rang: "10.96.0.0/12"
+kubernetes_cluster_cidr: "10.244.0.0/16"
+
+kubernetes_haproxy_admin_passwd: "admin123"
+
+
+kubernetes_images_registry: registry.cn-beijing.aliyuncs.com/souliot
+kubernetes_version: "v1.10.2"
+kubernetes_apiserver_image: "{{ kubernetes_images_registry }}/kube-apiserver-amd64:{{ kubernetes_version }}"
+kubernetes_controller_image: "{{ kubernetes_images_registry }}/kube-controller-manager-amd64:{{ kubernetes_version }}"
+kubernetes_scheduler_image:  "{{ kubernetes_images_registry }}/kube-scheduler-amd64:{{ kubernetes_version }}"
+
+kubernetes_etcd_image: "{{ kubernetes_images_registry }}/etcd-amd64:3.1.13"
+kubernetes_keepalived_image: "{{ kubernetes_images_registry }}/keepalived:1.2.24"
+kubernetes_haproxy_image: "{{ kubernetes_images_registry }}/haproxy:1.7"
+
+kubernetes_calico_node_image: "{{ kubernetes_images_registry }}/calico-node:v3.1.2"
+kubernetes_calico_cni_image: "{{ kubernetes_images_registry }}/calico-cni:v2.0.5"
+kubernetes_calico_kube_controllers_image: "{{ kubernetes_images_registry }}/calico-kube-controllers:v2.0.4"
+
+kubernetes_nginx_ingress_controller_image: "{{ kubernetes_images_registry }}/nginx-ingress-controller:0.15.0"
+kubernetes_default_http_backend_image: "{{ kubernetes_images_registry }}/defaultbackend:1.4"
+
+kubernetes_kube_dns_image: "{{ kubernetes_images_registry }}/k8s-dns-kube-dns-amd64:1.14.10"
+kubernetes_kube_dns_dnsmasq_image: "{{ kubernetes_images_registry }}/k8s-dns-dnsmasq-nanny-amd64:1.14.10"
+kubernetes_kube_dns_sidecar_image: "{{ kubernetes_images_registry }}/k8s-dns-sidecar-amd64:1.14.10"
+
+kubernetes_heapster_image: "{{ kubernetes_images_registry }}/heapster-amd64:v1.5.3"
+kubernetes_heapster_addon_resizer_image: "{{ kubernetes_images_registry }}/addon-resizer:1.8.1"
+kubernetes_heapster_influxdb_image: "{{ kubernetes_images_registry }}/heapster-influxdb-amd64:v1.3.3"
+kubernetes_heapster_grafana_image: "{{ kubernetes_images_registry }}/heapster-grafana-amd64:v4.4.3"
+
+kubernetes_kube_proxy_image: "{{ kubernetes_images_registry }}/kube-proxy-amd64:v1.10.2"
+kubernetes_dashboard_image: "{{ kubernetes_images_registry }}/kubernetes-dashboard-amd64:v1.8.3"
+kubernetes_dashboard_port: "443"
+kubernetes_dashboard_node_port: "30000"
+
+kubernetes_master: false
+kubernetes_node: false
+kubernetes_addons: false

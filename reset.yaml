@@ -1,0 +1,38 @@
+---
+
+# author: BossLin
+
+# 重置节点
+- hosts: k8s-master
+  any_errors_fatal: true
+  tasks:
+    - name: Reset Kubernetes component
+      shell: |
+        :;systemctl daemon-reload;
+        systemctl disable kubelet;
+        systemctl  stop   kubelet;
+        rm -rf /etc/kubernetes;
+        docker ps -a |awk '{print $1}' |xargs docker rm -f;
+      ignore_errors: True
+
+    - name: Delete flannel.1 interface
+      command: ip link delete flannel.1
+      ignore_errors: True
+
+    - name: Delete cni0 interface
+      command: ip link delete cni0
+      ignore_errors: True
+
+    - name: Delete dir leaves 
+      shell: |
+        :;rm -rf /var/lib/cni/;
+        rm -rf /etc/cni/;
+        rm -rf /var/lib/kubelet;
+        rm -rf /usr/local/kubernetes;
+        rm -rf /var/log/containers;
+        rm -rf /var/log/kubernetes;
+        rm -rf /var/log/pods/;
+        rm -rf /usr/lib/systemd/system/kubelet.service;
+        rm -rf /etc/systemd/system/kubelet.service.d;
+        rm -rf /usr/libexec/kubernetes;
+      ignore_errors: True

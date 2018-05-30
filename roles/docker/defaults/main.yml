@@ -1,0 +1,20 @@
+---
+# author: BossLin
+
+docker_repo: "http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo"
+
+docker_old:
+  - docker
+  - docker-common
+  - docker-selinux
+  - docker-engine
+
+docker_packages:
+  - lvm2
+  - yum-utils
+  - device-mapper-persistent-data
+  
+docker_start: true
+
+docker_registry_mirrors: ["https://3hofxgum.mirror.aliyuncs.com", "https://docker.mirrors.ustc.edu.cn/", "https://registry.docker-cn.com"]
+docker_insecure_registries: []

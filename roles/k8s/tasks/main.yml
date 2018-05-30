@@ -1,0 +1,33 @@
+---
+# author: BossLin
+
+# 检查 k8s 系统安装环境 【Centos 7 内存足够 并保证 Docker 运行】
+- import_tasks: check.yml
+  when: not kubernetes_addons
+
+# 设置 k8s 运行环境参数 并开启 ntp 服务
+- import_tasks: bootstrap.yml
+  when: not kubernetes_addons
+
+# 安装 k8s 软件 加载相应的 images
+- import_tasks: install.yml
+  when: not kubernetes_addons
+
+# 生成 k8s 所需要的证书
+- import_tasks: certificate/certificate.yml
+  run_once: true
+  when: kubernetes_master
+
+- import_tasks: configure.yml
+  when: not kubernetes_addons
+
+- import_tasks: service.yml
+  when: not kubernetes_addons
+
+- import_tasks: configure_cluster.yml
+  run_once: true
+  when: kubernetes_master
+
+- import_tasks: configure_addons.yml
+  run_once: true
+  when: kubernetes_addons

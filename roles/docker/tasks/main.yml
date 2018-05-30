@@ -1,0 +1,28 @@
+---
+# author: BossLin
+
+- name: 确认并卸载旧版本 Docker.
+  yum: "name={{ item }} state=removed"
+  with_items: "{{ docker_old }}"
+
+- name: 安装必要的一些系统工具.
+  yum: "name={{ item }} state=installed  update_cache=yes"
+  with_items: "{{ docker_packages }}"
+   
+- name: 添加软件源信息.
+  shell: "yum-config-manager --add-repo {{ docker_repo }}"
+  
+- name: 创建 Docker config 目录.
+  file: path=/etc/docker state=directory
+
+- name: 设置 docker 启动参数.
+  template:
+    src: daemon.json.j2
+    dest: "/etc/docker/daemon.json"
+
+- name: 安装新版本 docker-ce.
+  yum: "name=docker-ce state=installed update_cache=yes  enablerepo=docker-ce-stable"
+
+- name: 设置 docker 开机启动 并立即运行.
+  systemd: name=docker state=started enabled=yes
+  when: docker_start

@@ -1,0 +1,11 @@
+[k8s-master]
+192.168.32.101
+192.168.32.102
+# 192.168.32.103
+
+[k8s-node]
+
+
+[k8s-cluster:children]
+k8s-master
+k8s-node

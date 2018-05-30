@@ -1,0 +1,41 @@
+---
+# author: BossLin
+
+# # 初始化集群环境
+# - hosts: k8s-cluster
+#   serial: "100%"
+#   any_errors_fatal: true
+#   vars:
+#     - ipnames:
+#         '192.168.32.101': 'k8s-m1'
+#         '192.168.32.102': 'k8s-m2'
+#   roles:
+#     - { role: hostnames, tags: hostnames }
+#     - { role: docker, tags: docker }
+
+# 安装 master 节点
+- hosts: k8s-master
+  any_errors_fatal: true
+  vars:
+    - kubernetes_master: true
+    - kubernetes_apiserver_vip: 192.168.32.100
+  roles:
+    - { role: k8s, tags: k8s }
+
+# 安装node节点
+# - hosts: k8s-node
+#   any_errors_fatal: true
+#   vars:
+#     - kubernetes_node: true
+#     - kubernetes_apiserver_vip: 192.168.32.100
+#   roles:
+#     - { role: k8s, tags: k8s }
+    
+# 安装addons应用
+- hosts: k8s-master
+  any_errors_fatal: true
+  vars:
+    - kubernetes_addons: true
+    - kubernetes_apiserver_vip: 192.168.32.100
+  roles:
+    - { role: k8s, tags: k8s }

@@ -1,0 +1,16 @@
+---
+# author: BossLin
+
+- name: 修改主机名称.
+  hostname: "name={{ ipnames.get(ansible_default_ipv4.address)}}"
+  when: ipnames.get(ansible_default_ipv4.address)
+  
+- name: "添加 ipnames 到 {{ hostnames_file }}."
+  lineinfile: "dest={{ hostnames_file }} line='{{ item.key }} {{ item.value }}'"
+  with_dict: "{{ ipnames }}"
+  when: ipnames
+
+# - name: "添加 system ip 和 system hostname 到 {{ hostnames_file }}."
+#   lineinfile: "dest={{ hostnames_file }} line='{{ item }} {{ ansible_hostname }}'"
+#   with_items: "{{ ansible_all_ipv4_addresses }}"
+#   when: ansible_all_ipv4_addresses
